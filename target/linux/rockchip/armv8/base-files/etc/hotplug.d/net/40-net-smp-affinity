@@ -91,6 +91,8 @@ friendlyarm,nanopi-r4se)
 	/usr/sbin/ethtool -K eth1 tso on sg on tx on
 	;;
 embedfire,lubancat-1n|\
+friendlyelec,nanopi-r3s|\
+embedfire,lubancat-5|\
 embedfire,lubancat-2)
 	set_interface_core "0-1" "eth0"
 	set_interface_core "2-3" "eth1"
@@ -113,7 +115,9 @@ embedfire,lubancat-2)
 	/usr/sbin/ethtool -K eth1 tso on sg on tx on
 	;;
 hinlink,opc-h66k|\
-friendlyarm,nanopi-r5c)
+friendlyarm,nanopi-r5c|\
+friendlyarm,nanopc-t6|\
+friendlyarm,nanopi-r6c)
 	set_interface_core "0-3" "eth0-0"
 	set_interface_core "0" "eth0-16"
 	set_interface_core "1" "eth0-18"
@@ -136,6 +140,7 @@ friendlyarm,nanopi-r5c)
 	/usr/sbin/ethtool -K eth0 tso on sg on tx on
 	/usr/sbin/ethtool -K eth1 tso on sg on tx on
 	;;
+friendlyarm,nanopi-r6s|\
 friendlyarm,nanopi-r5s)
 	set_interface_core "0-3" "eth0"
 	set_interface_core "1" "eth1-0"
@@ -194,5 +199,27 @@ embedfire,lubancat-2n)
 	/usr/sbin/ethtool -K eth1 tso on sg on tx on
 	/usr/sbin/ethtool -K eth2 tso on sg on tx on
 	/usr/sbin/ethtool -K eth3 tso on sg on tx on
+	;;
+hinlink,h88k)
+	set_interface_core "6-7" "eth0"
+	set_interface_core "4-5" "eth1"
+	set_interface_core "0-1" "eth2"
+	rfc=32768
+	sysctl net.core.rps_sock_flow_entries=$rfc
+	for fileRfc in $(ls /sys/class/net/eth*/queues/rx-*/rps_flow_cnt)
+	do
+		eth_name=$(echo "$fileRfc"|awk -F/ '{print $5}')
+		echo $rfc > $fileRfc
+	done
+	#0101
+	echo 9 > /sys/class/net/eth0/queues/rx-0/rps_cpus
+	echo 9 > /sys/class/net/eth0/queues/rx-1/rps_cpus
+	#0011
+	echo 3 > /sys/class/net/eth1/queues/rx-0/rps_cpus
+	echo 3 > /sys/class/net/eth1/queues/rx-1/rps_cpus
+
+	/usr/sbin/ethtool -K eth0 tso on sg on tx on
+	/usr/sbin/ethtool -K eth1 tso on sg on tx on
+	/usr/sbin/ethtool -K eth2 tso on sg on tx on
 	;;
 esac

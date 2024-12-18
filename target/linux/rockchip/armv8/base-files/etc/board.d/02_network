@@ -12,14 +12,19 @@ rockchip_setup_interfaces()
 	embedfire,doornet2|\
 	embedfire,lubancat-1n|\
 	embedfire,lubancat-2|\
+	embedfire,lubancat-5|\
 	hinlink,opc-h66k|\
 	friendlyarm,nanopi-r2c|\
 	friendlyarm,nanopi-r2s|\
+	friendlyelec,nanopi-r3s|\
 	friendlyarm,nanopi-r4s|\
+	friendlyarm,nanopi-r4se|\
 	friendlyarm,nanopi-r5c|\
-	friendlyarm,nanopi-r4se)
+	friendlyarm,nanopc-t6|\
+	friendlyarm,nanopi-r6c)
 		ucidef_set_interfaces_lan_wan 'eth1' 'eth0'
 		;;
+	friendlyarm,nanopi-r6s|\
 	friendlyarm,nanopi-r5s)
 		ucidef_set_interfaces_lan_wan "eth1 eth2" "eth0"
 		;;
@@ -30,6 +35,9 @@ rockchip_setup_interfaces()
 	hinlink,opc-h69k|\
 	embedfire,lubancat-2n)
 		ucidef_set_interfaces_lan_wan "eth1 eth2 eth3" "eth0"
+		;;
+	hinlink,h88k)
+		ucidef_set_interfaces_lan_wan "eth1 eth2 eth3 eth4" "eth0"
 		;;
 	*)
 		ucidef_set_interface_lan 'eth0'
@@ -79,13 +87,19 @@ rockchip_setup_macs()
 	embedfire,lubancat-1n|\
 	embedfire,lubancat-2|\
 	embedfire,lubancat-2n|\
+	embedfire,lubancat-5|\
 	hinlink,opc-h66k|\
 	hinlink,opc-h68k|\
 	hinlink,opc-h69k|\
+	hinlink,h88k|\
 	friendlyarm,nanopi-r2c|\
 	friendlyarm,nanopi-r2s|\
+	friendlyelec,nanopi-r3s|\
 	friendlyarm,nanopi-r5c|\
-	friendlyarm,nanopi-r5s)
+	friendlyarm,nanopi-r5s|\
+	friendlyarm,nanopc-t6|\
+	friendlyarm,nanopi-r6s|\
+	friendlyarm,nanopi-r6c)
 		wan_mac=$(generate_mac_from_mmc_cid)
 		lan_mac=$(macaddr_add "$wan_mac" +1)
 		;;

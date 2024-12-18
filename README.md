@@ -9,21 +9,23 @@ embedfire_lubancat2
 embedfire_lubancat2n
 friendlyarm_nanopi-r2c
 friendlyarm_nanopi-r2s
+friendlyarm_nanopi-r3s
 friendlyarm_nanopi-r4s
 friendlyarm_nanopi-r4se
 friendlyarm_nanopi-r5s
 friendlyarm_nanopi-r5c
+friendlyarm_nanopi-r6c
+friendlyarm_nanopi-r6s
+friendlyarm_nanopc-t6
 hinlink_opc-h66k
 hinlink_opc-h68k
 hinlink_opc-h69k
+hinlink_h88k
 ```
 
 ### Next plan to add equipment:
 ```
-friendlyarm_nanopi-r6c
-friendlyarm_nanopi-r6s
-friendlyarm_nanopc-t6
-hinlink_h88k
+no
 ```
 How to compile the OpenWrt firmware you need
 -
@@ -33,16 +35,18 @@ Notice:
 2. Domestic users had better prepare a ladder before compiling
 3. Default login IP 192.168.1.1 password password
 
-2. Install compilation dependencies
+2. First install the Linux system, Debian 11 or Ubuntu LTS is recommended
+3. Install compilation dependencies
 
    ```bash
    sudo apt update -y
    sudo apt install -y ack antlr3 asciidoc autoconf automake autopoint binutils bison build-essential \
-   bzip2 ccache cmake cpio curl device-tree-compiler fastjar flex gawk gettext gcc-multilib g++-multilib \
-   git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libglib2.0-dev libgmp3-dev libltdl-dev vpnc \
-   libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libreadline-dev libssl-dev libtool lrzsz aria2 lib32gcc-s1 \
-   mkisofs msmtp nano ninja-build p7zip p7zip-full patch pkgconf python2.7 python3 python3-pip libpython3-dev qemu-utils \
-   rsync scons squashfs-tools subversion swig texinfo uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev libfuse-dev
+   bzip2 ccache clang cmake cpio curl device-tree-compiler flex gawk gettext gcc-multilib g++-multilib \
+   git gperf haveged help2man intltool libc6-dev-i386 libelf-dev libfuse-dev libglib2.0-dev libgmp3-dev \
+   libltdl-dev libmpc-dev libmpfr-dev libncurses5-dev libncursesw5-dev libpython3-dev libreadline-dev \
+   libssl-dev libtool llvm lrzsz mkisofs msmtp ninja-build p7zip p7zip-full patch pkgconf python3 \
+   python3-pyelftools python3-setuptools qemu-utils rsync scons squashfs-tools subversion swig texinfo \
+   uglifyjs upx-ucl unzip vim wget xmlto xxd zlib1g-dev
    ```
 
 3. Download source code, update feeds and choose configuration
@@ -59,7 +63,7 @@ Notice:
 
 6. Enter `make -j10 V=s` (-j1 is followed by the number of threads. It is recommended to use single thread for the first compilation) to start compiling the firmware you want.
 
-This set of code is guaranteed to compile successfully. It includes all source codes of R21, including IPK.
+This set of code is guaranteed to compile successfully. It includes all source codes of R24, including IPK.
 
 Second compilation:
 ```bash

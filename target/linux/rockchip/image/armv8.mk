@@ -9,8 +9,7 @@ define Device/embedfire_doornet1
   DEVICE_VENDOR := EmbedFire
   DEVICE_MODEL := DoorNet1
   SOC := rk3328
-  UBOOT_DEVICE_NAME := doornet1-rk3328
-  IMAGE/sysupgrade.img.gz := boot-common | boot-script nanopi-r2s | pine64-bin | gzip | append-metadata
+  BOOT_FLOW := pine64-bin
   DEVICE_PACKAGES := kmod-usb-net-rtl8152 kmod-rtl8821cu
 endef
 TARGET_DEVICES += embedfire_doornet1
@@ -19,8 +18,7 @@ define Device/embedfire_doornet2
   DEVICE_VENDOR := EmbedFire
   DEVICE_MODEL := DoorNet2
   SOC := rk3399
-  UBOOT_DEVICE_NAME := doornet2-rk3399
-  IMAGE/sysupgrade.img.gz := boot-common | boot-script nanopi-r4s | pine64-img | gzip | append-metadata
+  BOOT_FLOW := pine64-bin
   DEVICE_PACKAGES := kmod-r8168 -urngd
 endef
 TARGET_DEVICES += embedfire_doornet2
@@ -29,9 +27,8 @@ define Device/embedfire_lubancat-1
   DEVICE_VENDOR := EmbedFire
   DEVICE_MODEL := LubanCat-1
   SOC := rk3566
-  UBOOT_DEVICE_NAME := lubancat-1-rk3566
-  IMAGE/sysupgrade.img.gz := boot-common | boot-script rk356x | pine64-img | gzip | append-metadata
-  DEVICE_PACKAGES := kmod-r8125
+  BOOT_FLOW := pine64-img
+  DEVICE_PACKAGES := kmod-mt7921e wpad-openssl luci-app-modem
 endef
 TARGET_DEVICES += embedfire_lubancat-1
 
@@ -39,18 +36,25 @@ define Device/embedfire_lubancat-1n
   DEVICE_VENDOR := EmbedFire
   DEVICE_MODEL := LubanCat-1N
   SOC := rk3566
-  UBOOT_DEVICE_NAME := lubancat-1n-rk3566
-  IMAGE/sysupgrade.img.gz := boot-common | boot-script rk356x | pine64-img | gzip | append-metadata
+  BOOT_FLOW := pine64-img
   DEVICE_PACKAGES := kmod-r8169 -urngd kmod-ata-ahci
 endef
 TARGET_DEVICES += embedfire_lubancat-1n
+
+define Device/radxa_zero-3e
+  DEVICE_VENDOR := RADXA
+  DEVICE_MODEL := ZERO-3E
+  SOC := rk3566
+  BOOT_FLOW := pine64-img
+  DEVICE_PACKAGES := kmod-r8169 -urngd kmod-ata-ahci
+endef
+TARGET_DEVICES += radxa_zero-3e
 
 define Device/embedfire_lubancat-2
   DEVICE_VENDOR := EmbedFire
   DEVICE_MODEL := LubanCat-2
   SOC := rk3568
-  UBOOT_DEVICE_NAME := lubancat-2-rk3568
-  IMAGE/sysupgrade.img.gz := boot-common | boot-script rk356x | pine64-img | gzip | append-metadata
+  BOOT_FLOW := pine64-img
   DEVICE_PACKAGES := kmod-ata-ahci kmod-ata-ahci-platform kmod-ata-core kmod-ata-ahci kmod-ata-ahci-platform kmod-ata-core
 endef
 TARGET_DEVICES += embedfire_lubancat-2
@@ -59,17 +63,33 @@ define Device/embedfire_lubancat-2n
   DEVICE_VENDOR := EmbedFire
   DEVICE_MODEL := LubanCat-2N
   SOC := rk3568
-  UBOOT_DEVICE_NAME := lubancat-2n-rk3568
-  IMAGE/sysupgrade.img.gz := boot-common | boot-script rk356x | pine64-img | gzip | append-metadata
+  BOOT_FLOW := pine64-img
   DEVICE_PACKAGES := kmod-r8125 kmod-ata-ahci kmod-ata-ahci-platform kmod-ata-core
 endef
 TARGET_DEVICES += embedfire_lubancat-2n
 
+define Device/embedfire_lubancat-4
+  DEVICE_VENDOR := EmbedFire
+  DEVICE_MODEL := LubanCat-4
+  SOC := rk3588s
+  BOOT_FLOW := pine64-img
+  DEVICE_PACKAGES := kmod-usb-serial-option uqmi kmod-mt7921e wpad-openssl
+endef
+TARGET_DEVICES += embedfire_lubancat-4
+
+define Device/embedfire_lubancat-5
+  DEVICE_VENDOR := EmbedFire
+  DEVICE_MODEL := LubanCat-5
+  SOC := rk3588
+  BOOT_FLOW := pine64-img
+  DEVICE_PACKAGES := kmod-ata-ahci-platform kmod-hwmon-pwmfan kmod-mt7921e kmod-r8125 wpad-openssl
+endef
+TARGET_DEVICES += embedfire_lubancat-5
+
 define Device/hinlink_common
   DEVICE_VENDOR := HINLINK
-  UBOOT_DEVICE_NAME := opc-h68k-rk3568
-  IMAGE/sysupgrade.img.gz := boot-common | boot-script rk356x | pine64-img | gzip | append-metadata
-  DEVICE_PACKAGES := kmod-ata-ahci-platform kmod-hwmon-pwmfan kmod-mt7921e kmod-r8125 wpad-openssl
+  BOOT_FLOW := pine64-img
+  DEVICE_PACKAGES := kmod-ata-ahci-platform kmod-hwmon-pwmfan kmod-mt7921e kmod-r8125 wpad-openssl luci-app-modem
 endef
 
 define Device/hinlink_opc-h66k
@@ -94,13 +114,21 @@ $(call Device/hinlink_common)
 endef
 TARGET_DEVICES += hinlink_opc-h69k
 
+define Device/hinlink_h88k
+  DEVICE_VENDOR := HINLINK
+  DEVICE_MODEL := H88K
+  SOC := rk3588
+  BOOT_FLOW := pine64-img
+  DEVICE_PACKAGES := kmod-ata-ahci-platform kmod-hwmon-pwmfan kmod-mt7921e kmod-r8125 wpad-openssl
+endef
+TARGET_DEVICES += hinlink_h88k
+
 define Device/friendlyarm_nanopi-r2c
   DEVICE_VENDOR := FriendlyARM
   DEVICE_MODEL := NanoPi R2C
   SOC := rk3328
-  UBOOT_DEVICE_NAME := nanopi-r2c-rk3328
-  IMAGE/sysupgrade.img.gz := boot-common | boot-script nanopi-r2s | pine64-bin | gzip | append-metadata
-  DEVICE_PACKAGES := kmod-usb-net-rtl8152  kmod-rtl8821cu
+  BOOT_FLOW := pine64-bin
+  DEVICE_PACKAGES := kmod-usb-net-rtl8152
 endef
 TARGET_DEVICES += friendlyarm_nanopi-r2c
 
@@ -108,18 +136,25 @@ define Device/friendlyarm_nanopi-r2s
   DEVICE_VENDOR := FriendlyARM
   DEVICE_MODEL := NanoPi R2S
   SOC := rk3328
-  UBOOT_DEVICE_NAME := nanopi-r2s-rk3328
-  IMAGE/sysupgrade.img.gz := boot-common | boot-script nanopi-r2s | pine64-bin | gzip | append-metadata
+  BOOT_FLOW := pine64-bin
   DEVICE_PACKAGES := kmod-usb-net-rtl8152
 endef
 TARGET_DEVICES += friendlyarm_nanopi-r2s
+
+define Device/friendlyarm_nanopi-r3s
+  DEVICE_VENDOR := FriendlyARM
+  DEVICE_MODEL := NanoPi R3S
+  SOC := rk3566
+  BOOT_FLOW := pine64-img
+  DEVICE_PACKAGES := kmod-r8168 -urngd
+endef
+TARGET_DEVICES += friendlyarm_nanopi-r3s
 
 define Device/friendlyarm_nanopi-r4s
   DEVICE_VENDOR := FriendlyARM
   DEVICE_MODEL := NanoPi R4S
   SOC := rk3399
-  UBOOT_DEVICE_NAME := nanopi-r4s-rk3399
-  IMAGE/sysupgrade.img.gz := boot-common | boot-script nanopi-r4s | pine64-bin | gzip | append-metadata
+  BOOT_FLOW := pine64-bin
   DEVICE_PACKAGES := kmod-r8168  kmod-rtl8821cu -urngd
 endef
 TARGET_DEVICES += friendlyarm_nanopi-r4s 
@@ -128,8 +163,7 @@ define Device/friendlyarm_nanopi-r4se
   DEVICE_VENDOR := FriendlyARM
   DEVICE_MODEL := NanoPi R4SE
   SOC := rk3399
-  UBOOT_DEVICE_NAME := nanopi-r4se-rk3399
-  IMAGE/sysupgrade.img.gz := boot-common | boot-script nanopi-r4s | pine64-bin | gzip | append-metadata
+  BOOT_FLOW := pine64-bin
   DEVICE_PACKAGES := kmod-r8168 -urngd
 endef
 TARGET_DEVICES += friendlyarm_nanopi-r4se
@@ -138,9 +172,8 @@ define Device/friendlyarm_nanopi-r5s
   DEVICE_VENDOR := FriendlyARM
   DEVICE_MODEL := NanoPi R5S
   SOC := rk3568
-  UBOOT_DEVICE_NAME := nanopi-r5s-rk3568
-  IMAGE/sysupgrade.img.gz := boot-common | boot-script rk356x | pine64-img | gzip | append-metadata
-  DEVICE_PACKAGES := kmod-r8125 kmod-nvme kmod-scsi-core
+  BOOT_FLOW := pine64-img
+  DEVICE_PACKAGES := kmod-ata-ahci-platform kmod-hwmon-pwmfan kmod-mt7921e kmod-r8125 wpad-openssl
 endef
 TARGET_DEVICES += friendlyarm_nanopi-r5s
 
@@ -148,8 +181,35 @@ define Device/friendlyarm_nanopi-r5c
   DEVICE_VENDOR := FriendlyARM
   DEVICE_MODEL := NanoPi R5C
   SOC := rk3568
-  UBOOT_DEVICE_NAME := nanopi-r5c-rk3568
-  IMAGE/sysupgrade.img.gz := boot-common | boot-script rk356x | pine64-img | gzip | append-metadata
+  BOOT_FLOW := pine64-img
   DEVICE_PACKAGES := kmod-r8125
 endef
 TARGET_DEVICES += friendlyarm_nanopi-r5c
+
+define Device/friendlyarm_nanopc-t6
+  DEVICE_VENDOR := FriendlyARM
+  DEVICE_MODEL := NanoPC T6
+  SOC := rk3588
+  BOOT_FLOW := pine64-img
+  DEVICE_PACKAGES := kmod-hwmon-pwmfan kmod-mt7921e kmod-r8125 wpad-openssl
+endef
+TARGET_DEVICES += friendlyarm_nanopc-t6
+
+define Device/friendlyarm_nanopi-r6s
+  DEVICE_VENDOR := FriendlyARM
+  DEVICE_MODEL := NanoPi R6S
+  SOC := rk3588s
+  BOOT_FLOW := pine64-img
+  DEVICE_PACKAGES := kmod-hwmon-pwmfan kmod-mt7921e kmod-r8125 wpad-openssl
+endef
+TARGET_DEVICES += friendlyarm_nanopi-r6s
+
+define Device/friendlyarm_nanopi-r6c
+  DEVICE_VENDOR := FriendlyARM
+  DEVICE_MODEL := NanoPi R6C
+  SOC := rk3588s
+  BOOT_FLOW := pine64-img
+  DEVICE_PACKAGES := kmod-hwmon-pwmfan kmod-mt7921e kmod-r8125 wpad-openssl
+endef
+TARGET_DEVICES += friendlyarm_nanopi-r6c
+
